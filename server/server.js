@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const tripController = require('./controllers/tripController.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,7 +18,8 @@ app.get('/api/trips', (req, res) => {
 
 // Route adds row to trips table
 // TODO: add middleware to add row
-app.post('/api/trips', (req, res) => {
+app.post('/api/trips', tripController.createData, (req, res) => {
+  console.log('sending 200 from POST to /api/trips')
   return res.status(200).send();
 });
 
