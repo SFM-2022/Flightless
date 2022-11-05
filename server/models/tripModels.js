@@ -12,6 +12,7 @@ const pool = new Pool({
 // dep_location VARCHAR(100),
 // arr_location VARCHAR(100),
 // dep_date VARCHAR(100),
+// return_date VARCHAR(100),
 // adults VARCHAR(10),
 // children VARCHAR(10),
 // infants VARCHAR(10),
