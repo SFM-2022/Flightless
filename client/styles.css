@@ -3,8 +3,13 @@ body {
   background: rgb(246, 246, 246);
 }
 
+.title-name {
+  font-family: 'Rubik Bubbles';
+}
+
 h1 {
   color: #4bb2b8;
+  font-size: 2.5rem;
 }
 
 .formBody {
@@ -124,10 +129,13 @@ h3 {
 }
 
 /* SEARCH RESULTS */
-
 .search-results {
-  column-count: 2;
   margin: 0.5rem;
+}
+
+.prev-search-results {
+  text-align: center;
+  width: 10%;
 }
 
 .prev-search-results,
@@ -139,7 +147,27 @@ h3 {
   background: white;
 }
 
+.saved-search {
+  border-bottom: 1px solid black;
+  margin: 0.5rem 0;
+  padding-bottom: 1rem;
+}
+
+.search-results-display {
+  color: #4bb2b8;
+  margin-bottom: 0.5rem;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
 /* SIDEBAR */
+
+.nav-bar-text {
+  color: white;
+  font-family: 'Rubik Bubbles';
+}
 
 nav h1 {
   margin: 0.5rem;

@@ -3,7 +3,7 @@ import React from 'react';
 export default function Navbar() {
   return (
     <nav>
-      <h1>Navbar</h1>
+      <h1 className='nav-bar-text'>Navbar</h1>
     </nav>
   );
 }
