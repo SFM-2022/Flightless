@@ -7,13 +7,13 @@ import Sidebar from './components/Sidebar/Sidebar.jsx';
 import SearchResults from './pages/SearchResults/SearchResults.jsx';
 import SavedTrips from './pages/SavedTrips/SavedTrips.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
+import SavedSearch from './components/SavedSearch/SavedSearch.jsx';
 
 export default function App() {
   const [formData, setFormData] = useState([]);
-  const [savedSearches, setSavedSearches] = useState();
+  const [savedSearches, setSavedSearches] = useState([]);
   const [apiResults, setApiResults] = useState();
   const [formIsOpen, setFormIsOpen] = useState(false);
-
   useEffect(() => {
     axios
       .get('/api/test')
@@ -48,9 +48,18 @@ each input has <input value={}/>
       <div className='search-results'>
         <Sidebar />
         <Routes>
-          <Route path='/' element={<SearchResults />} />
-          <Route path='/saved-trips' element={<SavedTrips />} />
-          <Route path='*' element={<NotFound />} />
+          <Route
+            path='/'
+            element={<SearchResults />}
+          />
+          <Route
+            path='/saved-trips'
+            element={<SavedTrips savedSearches={savedSearches} />}
+          />
+          <Route
+            path='*'
+            element={<NotFound />}
+          />
         </Routes>
       </div>
       {formData}

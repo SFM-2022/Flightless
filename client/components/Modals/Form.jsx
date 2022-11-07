@@ -112,10 +112,16 @@ const Form = ({ updateForm }) => {
               <div className='flight-type'>
                 <h3 className='dates'>Dates</h3>
                 <div>
-                  <label id='flight-type-label' className='form-label'>
+                  <label
+                    id='flight-type-label'
+                    className='form-label'
+                  >
                     Flight:
                   </label>
-                  <select id='flight-type-select' className='form-select'>
+                  <select
+                    id='flight-type-select'
+                    className='form-select'
+                  >
                     <option
                       // value='one-way'
                       className={`trip-error ${errors.tripType}`}
@@ -267,7 +273,10 @@ const Form = ({ updateForm }) => {
           </div>
         </div>
         {/* button onClick searches for flights matching origin and destination */}
-        <button type='submit' className='search'>
+        <button
+          type='submit'
+          className='search'
+        >
           Search
         </button>
       </form>
