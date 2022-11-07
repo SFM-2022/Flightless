@@ -4,12 +4,12 @@ export default function SavedSearch({
   depLocation,
   arrLocation,
   departureDate,
-  returnDate,
   adults,
   children,
   infants,
   cabinClass,
   roundTrip,
+  returnDate,
 }) {
   return (
     <div className='saved-search'>

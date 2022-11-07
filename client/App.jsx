@@ -12,7 +12,7 @@ import SavedSearch from './components/SavedSearch/SavedSearch.jsx';
 export default function App() {
   const [formData, setFormData] = useState([]);
   const [savedSearches, setSavedSearches] = useState([]);
-  const [apiResults, setApiResults] = useState();
+  const [apiResults, setApiResults] = useState([]);
   const [formIsOpen, setFormIsOpen] = useState(false);
   useEffect(() => {
     axios
@@ -25,6 +25,21 @@ export default function App() {
   const updateForm = (info) => {
     setFormData(info);
   };
+
+  useEffect(() => {
+    if (formData.length === 0) return;
+    axios
+      .post('/api/flights', formData)
+      .then((res) => {
+        setApiResults(res.data);
+        console.log(
+          'this is in app.jsx after we send axios.post req',
+          apiResults
+        );
+        return;
+      })
+      .catch((err) => console.log(err));
+  }, [formData]);
 
   const fetchRows = () => {
     axios
@@ -58,7 +73,7 @@ each input has <input value={}/>
         <Routes>
           <Route
             path='/'
-            element={<SearchResults />}
+            element={<SearchResults apiResults={apiResults} />}
           />
           <Route
             path='/saved-trips'
@@ -75,7 +90,6 @@ each input has <input value={}/>
           />
         </Routes>
       </div>
-      {formData}
     </>
   );
 }
