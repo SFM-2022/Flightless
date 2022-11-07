@@ -13,7 +13,8 @@ app.get('/api/test', (req, res) => {
 
 // Route returns all trips user has saved
 // TODO: add middleware to fetch ALL rows
-app.get('/api/trips', (req, res) => {
+app.get('/api/trips', tripController.fetchData, (req, res) => {
+  console.log('sending 200 from GET to /api/trips');
   return res.status(200).json(res.locals.trips);
 });
 
@@ -44,7 +45,7 @@ app.get(
   flightController.fetchData,
   flightController.parseData,
   (req, res) => {
-    return res.status(200).send(res.locals.flights);
+    return res.status(200).json(res.locals.flights);
   }
 );
 
