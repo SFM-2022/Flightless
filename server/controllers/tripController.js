@@ -79,8 +79,31 @@ tripController.createData = (req, res, next) => {
       next({
         log: 'Error in tripController.createData',
         status: 500,
-        message: err,
+        message: err
       })
     );
 };
+
+
+tripController.fetchData = (req, res, next) => {
+  //just need the rows property 
+  console.log('this is the req.body data', req.body);
+  const tripData = `SELECT * FROM trips`;
+
+  db.query(tripData)
+    .then(response => {
+      console.log('this is the data from tripController.fetchData', response);
+      res.locals.trips = response.rows;
+      return next();
+    })
+    .catch((err) =>
+      next({
+        log: 'Error in tripController.fetchData',
+        status: 500,
+        message: err
+      })
+    );
+};
+
+
 module.exports = tripController;
