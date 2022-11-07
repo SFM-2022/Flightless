@@ -40,24 +40,15 @@ app.delete('/api/trips', (req, res) => {
 
 // Route fetches data from API and returns to front end
 // TODO: add middleware to fetch from API
-app.get(
+app.post(
   '/api/flights',
+  tripController.createData,
   flightController.fetchData,
   flightController.parseData,
   (req, res) => {
     return res.status(200).json(res.locals.flights);
   }
 );
-
-app.post('/api/flights', (req, res) => {
-  console.log('api flight router', req.body);
-  return res.status(200);
-});
-
-app.post('/api/flights', (req, res)=>{
-  console.log('api flight router', req.body)
-  return res.status(200)
-})
 
 app.use('*', (req, res) => {
   return res.sendStatus(404);
