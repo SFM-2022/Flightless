@@ -20,15 +20,15 @@ const Form = ({ updateForm }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const { data: response } = await axios.get('/api/flights');
-        setData(response);
+        const { data: response } = await axios.post('/api/flights', data);
+        // setData(response);
       } catch (err) {
         console.log(`error fetching state: ${err}`);
       }
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [data]);
 
   // if there are any changes to data, this will make a post request to api/flights
   useEffect(() => {
@@ -47,29 +47,12 @@ const Form = ({ updateForm }) => {
 
   // making search bar functional -> query search, probably use .map to loop through each obj in the array and display it? -> onClick event handler?
 
-  // updateForm will upstate dataForm (state in app.jsx)
-  // handle submit
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
-    updateForm(JSON.stringify(data));
-  };
-
-  const onError = () => {
-    console.log('error');
-  };
+  // console.log('this is handle submit', handleSubmit);
+  // console.log('data', data);
 
   return (
     <div className='formBody'>
-      <form
-        onSubmit={(e) =>
-          handleSubmit(
-            onSubmit,
-            onError
-          )(e).catch((e) => {
-            console.log('e', e);
-          })
-        }
-      >
+      <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
         <div className='searchBar'>
           <h1>Flightless</h1>
 
@@ -295,7 +278,6 @@ const Form = ({ updateForm }) => {
           Search
         </button>
       </form>
-      {data}
     </div>
   );
 };

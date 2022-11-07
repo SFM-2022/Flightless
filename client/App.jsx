@@ -39,9 +39,14 @@ each input has <input value={}/>
 
   return (
     <>
-      <Form updateForm={updateForm} />
-      {/* <Navbar /> */}
-      <div className='search-results'>
+      <Form formData={formData} setFormData={setFormData}/>
+      {/* Form modal 
+      pass it all of the form data as props
+      pass it the onSubmit handler
+      pass it an onChange handler (every input should have this)
+      each input has <input value={}/>*/}
+      <Navbar />
+      <div>
         <Sidebar />
         <Routes>
           <Route path='/' element={<SearchResults />} />
@@ -49,7 +54,7 @@ each input has <input value={}/>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
-      This is in app.jsx rendering formData {formData}
+      {formData}
     </>
   );
 }
