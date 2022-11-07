@@ -54,6 +54,11 @@ app.post('/api/flights', (req, res) => {
   return res.status(200);
 });
 
+app.post('/api/flights', (req, res)=>{
+  console.log('api flight router', req.body)
+  return res.status(200)
+})
+
 app.use('*', (req, res) => {
   return res.sendStatus(404);
 });

@@ -53,7 +53,7 @@ each input has <input value={}/>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
-      This is in app.jsx rendering formData {formData}
+      {formData}
     </>
   );
 }

@@ -44,16 +44,7 @@ const Form = ({ updateForm }) => {
 
   return (
     <div className='formBody'>
-      <form
-        onSubmit={(e) =>
-          handleSubmit(
-            onSubmit,
-            onError
-          )(e).catch((e) => {
-            console.log('e', e);
-          })
-        }
-      >
+      <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
         <div className='searchBar'>
           <h1>Flightless</h1>
 
@@ -280,7 +271,6 @@ const Form = ({ updateForm }) => {
           Search
         </button>
       </form>
-      {data}
     </div>
   );
 };
