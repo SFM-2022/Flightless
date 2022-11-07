@@ -35,27 +35,30 @@ const Form = () => {
   // console.log('this is handle submit', handleSubmit);
   // console.log('data', data);
 
+  // handle submit
+  const onSubmit = (data) => alert(JSON.stringify(data));
+
   return (
     <div className='formBody'>
-      <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className='searchBar'>
           <h1>Flightless</h1>
 
           <div className='locations'>
             {/* ORIGIN */}
-            <div className='origin'>
-              <label className='form-label'>Origin:</label>
+            <div className='dep'>
+              <label className='form-label'>Departure:</label>
               <div className='input-group'>
                 <span className='input'></span>
                 <input
                   type='text'
                   className='form-control'
-                  list='origin-options'
                   placeholder='Location'
-                  {...register('origin_location', {
+                  // spreading props into input
+                  {...register('depLocation', {
                     required: {
                       value: true,
-                      message: 'origin is required',
+                      message: 'departure is required',
                     },
                   })}
                 />
@@ -63,19 +66,18 @@ const Form = () => {
             </div>
 
             {/* DESTINATION */}
-            <div className='destination'>
-              <label className='form-label'>Destination:</label>
+            <div className='arr'>
+              <label className='form-label'>Arrival:</label>
               <div className='input-group'>
                 <span className='input'></span>
                 <input
                   type='text'
                   className='form-control'
-                  list='destination-options'
                   placeholder='Location'
-                  {...register('dep_location', {
+                  {...register('arrLocation', {
                     required: {
                       value: true,
-                      message: 'Departure is required',
+                      message: 'arrival is required',
                     },
                   })}
                 />
@@ -98,7 +100,7 @@ const Form = () => {
                   </label>
                   <select id='flight-type-select' className='form-select'>
                     <option
-                      value='one-way'
+                      // value='one-way'
                       className={`trip-error ${errors.tripType}`}
                       placeholder='one-way'
                       {...register('one-way', {
@@ -111,10 +113,10 @@ const Form = () => {
                       One-way
                     </option>
                     <option
-                      value='round-trip'
+                      // value='round-trip'
                       className={`trip-error ${errors.tripType}`}
                       placeholder='round-trip'
-                      {...register('round_trip', {
+                      {...register('roundTrip', {
                         required: {
                           value: true,
                           message: 'Trip type is required',
@@ -134,7 +136,7 @@ const Form = () => {
                   <input
                     type='date'
                     className='departure-date-input'
-                    {...register('dep_date', {
+                    {...register('depDate', {
                       required: {
                         value: true,
                         message: 'Departure date is required',
@@ -151,7 +153,7 @@ const Form = () => {
                   <input
                     type='date'
                     className='form-control'
-                    {...register('return_date', {
+                    {...register('returnDate', {
                       required: {
                         value: true,
                         message: 'Return date is required',
@@ -169,7 +171,7 @@ const Form = () => {
                 <label className='form-label'>Travel Class:</label>
                 <select
                   className='form-select'
-                  {...register('cabin_class', {
+                  {...register('cabinClass', {
                     required: {
                       value: true,
                       message: 'Trip type is required',
@@ -188,56 +190,68 @@ const Form = () => {
                 <label className='form-label'>Passengers:</label>
                 <div className='adults'>
                   <label className='input'>Adults (18+): </label>
-                  <input
-                    type='number'
-                    min='0'
-                    className='form-control'
-                    {...register('adults', {
+                  <select
+                    {...register('numAdults', {
                       required: {
                         value: true,
                         message: 'Trip type is required',
                       },
                     })}
-                  />
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
                 </div>
 
                 {/* PASSENGERS: CHILDREN */}
                 <div className='children'>
                   <label className='input'>Children (3-17): </label>
-                  <input
-                    type='number'
-                    min='0'
-                    className='form-control'
-                    {...register('children', {
+                  <select
+                    {...register('numChildren', {
                       required: {
                         value: true,
                         message: 'Trip type is required',
                       },
                     })}
-                  />
+                  >
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
                 </div>
 
                 {/* PASSENGERS: INFANTS */}
                 <div className='infants'>
                   <label for='infants-input'>Infants (0-2): </label>
-                  <input
-                    type='number'
-                    min='0'
-                    className='form-control'
-                    {...register('infants', {
+                  <select
+                    className='w-full h-16 rounded-lg text-2xl pl-20'
+                    {...register('numInfants', {
                       required: {
                         value: true,
                         message: 'Trip type is required',
                       },
                     })}
-                  />
+                  >
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* button onClick searches for flights matching origin and destination */}
-        <button className='search'>Search</button>
+        <button type='submit' className='search'>
+          Search
+        </button>
       </form>
     </div>
   );
