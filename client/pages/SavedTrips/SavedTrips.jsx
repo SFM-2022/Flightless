@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function SavedTrips() {
-  return <h1>Saved Trips</h1>;
+  return (
+    <div className='saved-trips'>
+      <p>This will contain info about all saved trips</p>
+    </div>
+  );
 }

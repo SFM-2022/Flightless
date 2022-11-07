@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function SearchResults() {
-  return <h1>Search Results</h1>;
+  return (
+    <div className='prev-search-results'>
+      <p>This will contain info about all search results</p>
+    </div>
+  );
 }
