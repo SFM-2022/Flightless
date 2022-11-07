@@ -1,3 +1,80 @@
 body {
   margin: 0.5rem;
+  background: rgb(246, 246, 246);
+}
+
+.formBody {
+  margin: 1rem;
+}
+
+/* ORIGIN AND DESTINATION */
+.origin,
+.destination {
+  display: inline-block;
+}
+
+.origin {
+  margin-right: 5rem;
+}
+
+.locations {
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1rem;
+}
+
+/* ALL THE INPUT BOXES */
+input {
+  width: 200px;
+}
+
+.dates-details {
+  padding: 1rem;
+  column-count: 2;
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 1rem 0;
+}
+
+/* DATES */
+h3 {
+  margin: 0;
+}
+
+.flight-type {
+  margin: 0.7rem 0;
+}
+
+/* PASSENGERS */
+.adults,
+.children,
+.infants {
+  margin: 0.4rem 0;
+}
+
+.search {
+  width: 300px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.search:hover {
+  background-color: #2a94cd;
+  box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
 }
