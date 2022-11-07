@@ -2,7 +2,7 @@
 
 // search: https://api.flightapi.io/onewaytrip/API_KEY/LAX/ORD/2022-12-24/2/2/0/First/USD
 
-const onewayTripResults = {
+const onewayTripResult = {
   legs: [
     {
       id: 'LAX-ORD:UA2069~24:UA2425~24:0',
@@ -61182,3 +61182,5 @@ const onewayTripResults = {
     },
   ],
 };
+
+module.exports = onewayTripResult;

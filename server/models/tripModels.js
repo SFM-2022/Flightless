@@ -1,7 +1,10 @@
 const { Pool } = require('pg');
+// dotenv is a package that allows us to store secretes in the .env folder
+// dotenv turns those values into environment variables, which can be accessed via process.env.<environment variable name>
+const dotenv = require('dotenv');
+dotenv.config();
 
-const PG_URI =
-  'postgres://ewwylkvx:I8IIhvZqNkI0SYs9gUIbNxoIftSkcvXL@heffalump.db.elephantsql.com/ewwylkvx';
+const { PG_URI } = process.env;
 
 const pool = new Pool({
   connectionString: PG_URI,

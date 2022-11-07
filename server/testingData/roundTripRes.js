@@ -68529,3 +68529,5 @@ const roundTripResult = {
     },
   ],
 };
+
+module.exports = roundTripResult;
