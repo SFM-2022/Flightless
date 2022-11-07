@@ -7,13 +7,13 @@ import Sidebar from './components/Sidebar/Sidebar.jsx';
 import SearchResults from './pages/SearchResults/SearchResults.jsx';
 import SavedTrips from './pages/SavedTrips/SavedTrips.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
+import SavedSearch from './components/SavedSearch/SavedSearch.jsx';
 
 export default function App() {
   const [formData, setFormData] = useState([]);
-  const [savedSearches, setSavedSearches] = useState();
+  const [savedSearches, setSavedSearches] = useState([]);
   const [apiResults, setApiResults] = useState();
   const [formIsOpen, setFormIsOpen] = useState(false);
-
   useEffect(() => {
     axios
       .get('/api/test')
@@ -26,6 +26,14 @@ export default function App() {
     setFormData(info);
   };
 
+  const fetchRows = () => {
+    axios
+      .get('/api/trips')
+      .then(({ data }) => {
+        setSavedSearches(data);
+      })
+      .catch((err) => console.log('error in fetchRows', err));
+  };
   //create a onsubmit function that when called will call setData and pass in the user inputted values to setData
 
   // FORM DATA STATE -> set by forms submit handler
@@ -48,9 +56,23 @@ each input has <input value={}/>
       <div className='search-results'>
         <Sidebar />
         <Routes>
-          <Route path='/' element={<SearchResults />} />
-          <Route path='/saved-trips' element={<SavedTrips />} />
-          <Route path='*' element={<NotFound />} />
+          <Route
+            path='/'
+            element={<SearchResults />}
+          />
+          <Route
+            path='/saved-trips'
+            element={
+              <SavedTrips
+                savedSearches={savedSearches}
+                fetchRows={fetchRows}
+              />
+            }
+          />
+          <Route
+            path='*'
+            element={<NotFound />}
+          />
         </Routes>
       </div>
       {formData}
