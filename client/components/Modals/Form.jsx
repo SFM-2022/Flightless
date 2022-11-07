@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 // register: method allows you to register an input or select element and apply validation rules to React Hook Form
 // watch: will watch specified inputs and return their values -> useful to render input value and for determining what to render by condition
 
-const Form = () => {
+const Form = ({ updateForm }) => {
   const {
     register,
     handleSubmit,
@@ -16,10 +16,6 @@ const Form = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  // using to make search bar functional?
-  const [query, setQuery] = useState('');
-
-  // unsure how to get the state from App.jsx
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -34,10 +30,29 @@ const Form = () => {
     fetchData();
   }, []);
 
+  // if there are any changes to data, this will make a post request to api/flights
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const { data: response } = await axios.post('/api/flights', data);
+        // setData(response);
+      } catch (err) {
+        console.log(`error fetching state: ${err}`);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [data]);
+
   // making search bar functional -> query search, probably use .map to loop through each obj in the array and display it? -> onClick event handler?
 
+  // updateForm will upstate dataForm (state in app.jsx)
   // handle submit
-  const onSubmit = (data) => console.log(JSON.stringify(data));
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data));
+    updateForm(JSON.stringify(data));
+  };
 
   const onError = () => {
     console.log('error');
@@ -62,27 +77,44 @@ const Form = () => {
             {/* ORIGIN */}
             <div className='dep'>
               <label className='form-label'>Departure:</label>
-              <div className='input-group'>
-                <span className='input'></span>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Location'
-                  // spreading props into input
-                  {...register('depLocation', {
-                    required: {
-                      value: true,
-                      message: 'departure is required',
-                    },
-                  })}
-                />
-              </div>
+              <select
+                {...register('dep_location', {
+                  required: {
+                    value: true,
+                    message: 'Departure is required',
+                  },
+                })}
+              >
+                <option>Select Airport</option>
+                <option value='JFK'>
+                  John F. Kennedy International Airport
+                </option>
+                <option value='SFO'>San Francisco International Airport</option>
+                <option value='LAX'>Los Angeles International Airport</option>
+                <option value='PHL'>Philadelphia International Airport</option>
+              </select>
             </div>
 
             {/* DESTINATION */}
             <div className='arr'>
               <label className='form-label'>Arrival:</label>
-              <div className='input-group'>
+              <select
+                {...register('arr_location', {
+                  required: {
+                    value: true,
+                    message: 'Departure is required',
+                  },
+                })}
+              >
+                <option>Select Airport</option>
+                <option value='JFK'>
+                  John F. Kennedy International Airport
+                </option>
+                <option value='SFO'>San Francisco International Airport</option>
+                <option value='LAX'>Los Angeles International Airport</option>
+                <option value='PHL'>Philadelphia International Airport</option>
+              </select>
+              {/* <div className='input-group'>
                 <span className='input'></span>
                 <input
                   type='text'
@@ -95,7 +127,7 @@ const Form = () => {
                     },
                   })}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -113,7 +145,7 @@ const Form = () => {
                       // value='one-way'
                       className={`trip-error ${errors.tripType}`}
                       placeholder='one-way'
-                      {...register('one-way', {
+                      {...register('one_way', {
                         required: {
                           value: true,
                           message: 'Trip type is required',
@@ -126,7 +158,7 @@ const Form = () => {
                       // value='round-trip'
                       className={`trip-error ${errors.tripType}`}
                       placeholder='round-trip'
-                      {...register('roundTrip', {
+                      {...register('round_trip', {
                         required: {
                           value: true,
                           message: 'Trip type is required',
@@ -146,7 +178,7 @@ const Form = () => {
                   <input
                     type='date'
                     className='departure-date-input'
-                    {...register('depDate', {
+                    {...register('dep_date', {
                       required: {
                         value: true,
                         message: 'Departure date is required',
@@ -163,7 +195,7 @@ const Form = () => {
                   <input
                     type='date'
                     className='form-control'
-                    {...register('returnDate', {
+                    {...register('return_date', {
                       required: {
                         value: true,
                         message: 'Return date is required',
@@ -181,7 +213,7 @@ const Form = () => {
                 <label className='form-label'>Travel Class:</label>
                 <select
                   className='form-select'
-                  {...register('cabinClass', {
+                  {...register('cabin_class', {
                     required: {
                       value: true,
                       message: 'Trip type is required',
@@ -201,7 +233,7 @@ const Form = () => {
                 <div className='adults'>
                   <label className='input'>Adults (18+): </label>
                   <select
-                    {...register('numAdults', {
+                    {...register('adults', {
                       required: {
                         value: true,
                         message: 'Trip type is required',
@@ -220,7 +252,7 @@ const Form = () => {
                 <div className='children'>
                   <label className='input'>Children (3-17): </label>
                   <select
-                    {...register('numChildren', {
+                    {...register('children', {
                       required: {
                         value: true,
                         message: 'Trip type is required',
@@ -237,10 +269,10 @@ const Form = () => {
 
                 {/* PASSENGERS: INFANTS */}
                 <div className='infants'>
-                  <label htmlFor='infants-input'>Infants (0-2): </label>
+                  <label htmlFor='infants'>Infants (0-2): </label>
                   <select
                     className='w-full h-16 rounded-lg text-2xl pl-20'
-                    {...register('numInfants', {
+                    {...register('infants', {
                       required: {
                         value: true,
                         message: 'Trip type is required',
@@ -263,8 +295,14 @@ const Form = () => {
           Search
         </button>
       </form>
+      {data}
     </div>
   );
 };
 
 export default Form;
+
+// onClick={(data) => {
+//   console.log(data);
+//   updateForm(123);
+// }}

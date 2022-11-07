@@ -5,6 +5,7 @@ body {
 
 .formBody {
   margin: 1rem;
+  border-bottom: 1px solid black;
 }
 
 /* DEPARTURE AND ARRIVAL */
@@ -73,6 +74,52 @@ h3 {
 }
 
 .search:hover {
+  background-color: #2a94cd;
+  box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+/* SEARCH RESULTS */
+
+.search-results {
+  column-count: 2;
+}
+
+.prev-search-results,
+.saved-trips {
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1rem;
+}
+
+/* SIDEBAR */
+
+ul li {
+  list-style-type: none;
+  margin-bottom: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: rgb(119, 176, 233);
+  background-color: rgb(214, 237, 247);
+  padding: 10px 20px;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+nav a:hover {
   background-color: #2a94cd;
   box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
   color: #fff;
