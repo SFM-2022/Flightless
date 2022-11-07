@@ -7,7 +7,7 @@ export default function Sidebar() {
       {/* <h1>Sidebar</h1> */}
       <ul>
         <li>
-          <NavLink to='/'>Search Results </NavLink>
+          <NavLink to='/'>Results</NavLink>
         </li>
         <li>
           <NavLink to='/saved-trips'>Saved Trips</NavLink>

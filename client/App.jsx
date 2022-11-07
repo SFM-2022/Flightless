@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 import Form from './components/Modals/Form.jsx';
-// import Navbar from './components/Navbar/Navbar.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
 import Sidebar from './components/Sidebar/Sidebar.jsx';
 import SearchResults from './pages/SearchResults/SearchResults.jsx';
 import SavedTrips from './pages/SavedTrips/SavedTrips.jsx';
@@ -10,6 +10,10 @@ import NotFound from './pages/NotFound/NotFound.jsx';
 
 export default function App() {
   const [formData, setFormData] = useState([]);
+  const [savedSearches, setSavedSearches] = useState();
+  const [apiResults, setApiResults] = useState();
+  const [formIsOpen, setFormIsOpen] = useState(false);
+
   useEffect(() => {
     axios
       .get('/api/test')
@@ -40,7 +44,7 @@ each input has <input value={}/>
   return (
     <>
       <Form updateForm={updateForm} />
-      {/* <Navbar /> */}
+      <Navbar />
       <div className='search-results'>
         <Sidebar />
         <Routes>
