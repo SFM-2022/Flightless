@@ -1,17 +1,27 @@
 import React from 'react';
 
-export default function SavedSearch() {
+export default function SavedSearch({
+  depLocation,
+  arrLocation,
+  departureDate,
+  returnDate,
+  adults,
+  children,
+  infants,
+  cabinClass,
+  roundTrip,
+}) {
   return (
-    <>
-      <h1>Round Trip</h1>
-      <h1>Origin: "dummy MCO"</h1>
-      <h1>Destination: "dummy LAX"</h1>
-      <h3>Departure Date: "dummy departure date"</h3>
-      <h3>Return Date: "dummy return date"</h3>
-      <h1>Economy Class</h1>
-      <h3># of adults</h3>
-      <h3># of children</h3>
-      <h3># of infants</h3>
-    </>
+    <div className='saved-search'>
+      <div>{roundTrip ? 'Round Trip' : 'Oneway'}</div>
+      <div>Origin: {depLocation}</div>
+      <div>Destination: {arrLocation}</div>
+      <div>Departure Date: {departureDate}</div>
+      {roundTrip && <div>Return Date: {returnDate}</div>}
+      <div>{cabinClass} Class</div>
+      <div># of adults: {adults}</div>
+      <div># of children: {children}</div>
+      <div># of infants: {infants}</div>
+    </div>
   );
 }

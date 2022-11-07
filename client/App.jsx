@@ -26,6 +26,14 @@ export default function App() {
     setFormData(info);
   };
 
+  const fetchRows = () => {
+    axios
+      .get('/api/trips')
+      .then(({ data }) => {
+        setSavedSearches(data);
+      })
+      .catch((err) => console.log('error in fetchRows', err));
+  };
   //create a onsubmit function that when called will call setData and pass in the user inputted values to setData
 
   // FORM DATA STATE -> set by forms submit handler
@@ -54,7 +62,12 @@ each input has <input value={}/>
           />
           <Route
             path='/saved-trips'
-            element={<SavedTrips savedSearches={savedSearches} />}
+            element={
+              <SavedTrips
+                savedSearches={savedSearches}
+                fetchRows={fetchRows}
+              />
+            }
           />
           <Route
             path='*'
