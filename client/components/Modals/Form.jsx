@@ -16,27 +16,13 @@ const Form = ({ updateForm }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const { data: response } = await axios.post('/api/flights', data);
-        // setData(response);
-      } catch (err) {
-        console.log(`error fetching state: ${err}`);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, [data]);
-
   // if there are any changes to data, this will make a post request to api/flights
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const { data: response } = await axios.post('/api/flights', data);
-        // setData(response);
+        setData(response);
       } catch (err) {
         console.log(`error fetching state: ${err}`);
       }
@@ -45,10 +31,16 @@ const Form = ({ updateForm }) => {
     fetchData();
   }, [data]);
 
-  // making search bar functional -> query search, probably use .map to loop through each obj in the array and display it? -> onClick event handler?
+  // updateForm will upstate dataForm (state in app.jsx)
+  // handle submit
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data));
+    updateForm(JSON.stringify(data));
+  };
 
-  // console.log('this is handle submit', handleSubmit);
-  // console.log('data', data);
+  const onError = () => {
+    console.log('error');
+  };
 
   return (
     <div className='formBody'>
@@ -57,9 +49,9 @@ const Form = ({ updateForm }) => {
           <h1>Flightless</h1>
 
           <div className='locations'>
-            {/* ORIGIN */}
+            {/* DEPARTURE */}
             <div className='dep'>
-              <label className='form-label'>Departure:</label>
+              <label className='form-label'>Departure: </label>
               <select
                 {...register('dep_location', {
                   required: {
@@ -78,9 +70,9 @@ const Form = ({ updateForm }) => {
               </select>
             </div>
 
-            {/* DESTINATION */}
+            {/* ARRIVAL */}
             <div className='arr'>
-              <label className='form-label'>Arrival:</label>
+              <label className='form-label'>Arrival: </label>
               <select
                 {...register('arr_location', {
                   required: {
@@ -193,7 +185,7 @@ const Form = ({ updateForm }) => {
             <div className='flight-class'>
               <h3 className='flight-className'>Details</h3>
               <div className='destination'>
-                <label className='form-label'>Travel Class:</label>
+                <label className='form-label'>Travel Class: </label>
                 <select
                   className='form-select'
                   {...register('cabin_class', {
@@ -212,10 +204,10 @@ const Form = ({ updateForm }) => {
 
               {/* PASSENGERS: ADULTS */}
               <div className='passengers'>
-                <label className='form-label'>Passengers:</label>
                 <div className='adults'>
                   <label className='input'>Adults (18+): </label>
                   <select
+                    className='adults-button'
                     {...register('adults', {
                       required: {
                         value: true,
@@ -235,6 +227,7 @@ const Form = ({ updateForm }) => {
                 <div className='children'>
                   <label className='input'>Children (3-17): </label>
                   <select
+                    className='children-button'
                     {...register('children', {
                       required: {
                         value: true,
@@ -254,7 +247,7 @@ const Form = ({ updateForm }) => {
                 <div className='infants'>
                   <label htmlFor='infants'>Infants (0-2): </label>
                   <select
-                    className='w-full h-16 rounded-lg text-2xl pl-20'
+                    className='infants-button'
                     {...register('infants', {
                       required: {
                         value: true,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 import Form from './components/Modals/Form.jsx';
-// import Navbar from './components/Navbar/Navbar.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
 import Sidebar from './components/Sidebar/Sidebar.jsx';
 import SearchResults from './pages/SearchResults/SearchResults.jsx';
 import SavedTrips from './pages/SavedTrips/SavedTrips.jsx';
@@ -10,6 +10,10 @@ import NotFound from './pages/NotFound/NotFound.jsx';
 
 export default function App() {
   const [formData, setFormData] = useState([]);
+  const [savedSearches, setSavedSearches] = useState();
+  const [apiResults, setApiResults] = useState();
+  const [formIsOpen, setFormIsOpen] = useState(false);
+
   useEffect(() => {
     axios
       .get('/api/test')
@@ -39,14 +43,9 @@ each input has <input value={}/>
 
   return (
     <>
-      <Form formData={formData} setFormData={setFormData}/>
-      {/* Form modal 
-      pass it all of the form data as props
-      pass it the onSubmit handler
-      pass it an onChange handler (every input should have this)
-      each input has <input value={}/>*/}
+      <Form updateForm={updateForm} />
       <Navbar />
-      <div>
+      <div className='search-results'>
         <Sidebar />
         <Routes>
           <Route path='/' element={<SearchResults />} />
