@@ -7,13 +7,13 @@ body {
   margin: 1rem;
 }
 
-/* ORIGIN AND DESTINATION */
-.origin,
-.destination {
+/* DEPARTURE AND ARRIVAL */
+.dep,
+.arr {
   display: inline-block;
 }
 
-.origin {
+.dep {
   margin-right: 5rem;
 }
 
