@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
+// register: method allows you to register an input or select element and apply validation rules to React Hook Form
+// watch: will watch specified inputs and return their values -> useful to render input value and for determining what to render by condition
+
 const Form = () => {
   const {
     register,
@@ -16,6 +19,7 @@ const Form = () => {
   // using to make search bar functional?
   const [query, setQuery] = useState('');
 
+  // unsure how to get the state from App.jsx
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -32,15 +36,25 @@ const Form = () => {
 
   // making search bar functional -> query search, probably use .map to loop through each obj in the array and display it? -> onClick event handler?
 
-  // console.log('this is handle submit', handleSubmit);
-  // console.log('data', data);
-
   // handle submit
-  const onSubmit = (data) => alert(JSON.stringify(data));
+  const onSubmit = (data) => console.log(JSON.stringify(data));
+
+  const onError = () => {
+    console.log('error');
+  };
 
   return (
     <div className='formBody'>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={(e) =>
+          handleSubmit(
+            onSubmit,
+            onError
+          )(e).catch((e) => {
+            console.log('e', e);
+          })
+        }
+      >
         <div className='searchBar'>
           <h1>Flightless</h1>
 
@@ -91,11 +105,7 @@ const Form = () => {
               <div className='flight-type'>
                 <h3 className='dates'>Dates</h3>
                 <div>
-                  <label
-                    id='flight-type-label'
-                    for='flight-type-select'
-                    className='form-label'
-                  >
+                  <label id='flight-type-label' className='form-label'>
                     Flight:
                   </label>
                   <select id='flight-type-select' className='form-select'>
@@ -227,7 +237,7 @@ const Form = () => {
 
                 {/* PASSENGERS: INFANTS */}
                 <div className='infants'>
-                  <label for='infants-input'>Infants (0-2): </label>
+                  <label htmlFor='infants-input'>Infants (0-2): </label>
                   <select
                     className='w-full h-16 rounded-lg text-2xl pl-20'
                     {...register('numInfants', {
