@@ -16,20 +16,6 @@ const Form = ({ updateForm }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const { data: response } = await axios.get('/api/flights');
-        setData(response);
-      } catch (err) {
-        console.log(`error fetching state: ${err}`);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
   // if there are any changes to data, this will make a post request to api/flights
   useEffect(() => {
     const fetchData = async () => {
@@ -137,10 +123,16 @@ const Form = ({ updateForm }) => {
               <div className='flight-type'>
                 <h3 className='dates'>Dates</h3>
                 <div>
-                  <label id='flight-type-label' className='form-label'>
+                  <label
+                    id='flight-type-label'
+                    className='form-label'
+                  >
                     Flight:
                   </label>
-                  <select id='flight-type-select' className='form-select'>
+                  <select
+                    id='flight-type-select'
+                    className='form-select'
+                  >
                     <option
                       // value='one-way'
                       className={`trip-error ${errors.tripType}`}
@@ -291,7 +283,10 @@ const Form = ({ updateForm }) => {
           </div>
         </div>
         {/* button onClick searches for flights matching origin and destination */}
-        <button type='submit' className='search'>
+        <button
+          type='submit'
+          className='search'
+        >
           Search
         </button>
       </form>
