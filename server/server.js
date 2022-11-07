@@ -45,7 +45,7 @@ app.get(
   flightController.fetchData,
   flightController.parseData,
   (req, res) => {
-    return res.status(200).send(res.locals.flights);
+    return res.status(200).json(res.locals.flights);
   }
 );
 

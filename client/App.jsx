@@ -22,6 +22,7 @@ export default function App() {
   useEffect(() => {
     axios
       .get('/api/test')
+      // .get('/api/flights')
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }, []);

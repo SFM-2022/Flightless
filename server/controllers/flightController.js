@@ -1,26 +1,61 @@
-const flightController = {};
+const useDummyData = true;
 
+const dotenv = require('dotenv');
+dotenv.config();
+const { FLIGHTSAPI_KEY } = process.env;
+const axios = require('axios');
+
+const flightController = {};
 // use dummy values for testing if possible so we don't go over the freemium limit
 const dummyOnewayTripRes = require('../testingData/onewayTripRes');
 const dummyRoundTripRes = require('../testingData/roundTripRes');
-const useDummyData = true;
 
 flightController.fetchData = (req, res, next) => {
   if (useDummyData) {
-    console.log('flightController.fetchData req.body value: ', req.body);
-    const dummyData = req.body.roundTrip
+    console.log('fetching dummy data. roundtrip: ', req.body.round_trip);
+    const dummyData = req.body.round_trip
       ? dummyRoundTripRes
       : dummyOnewayTripRes;
     res.locals.flights = dummyData;
     return next();
   } else {
-    // TODO: write middleware to format call to API
+    // compose endpoint
+    const {
+      dep_location,
+      arr_location,
+      dep_date,
+      return_date,
+      adults,
+      children,
+      infants,
+      cabin_class,
+      round_trip,
+    } = req.body;
+    let endpoint;
+    if (round_trip) {
+      endpoint = `https://api.flightapi.io/roundtrip/${FLIGHTSAPI_KEY}/${dep_location}/${arr_location}/${dep_date}/${return_date}/${adults}/${children}/${infants}/${cabin_class}/USD`;
+    } else {
+      endpoint = `https://api.flightapi.io/onewaytrip/${FLIGHTSAPI_KEY}/${dep_location}/${arr_location}/${dep_date}/${adults}/${children}/${infants}/${cabin_class}/USD`;
+    }
+    // fetch from API
+    console.log('api endpoint', endpoint);
+    axios
+      .get(endpoint)
+      .then((response) => {
+        console.log('API data fetched successfully');
+        res.locals.flights = response.data;
+        return next();
+      })
+      .catch((err) => next({ log: err }));
   }
 };
 
 flightController.parseData = (req, res, next) => {
   const flightData = res.locals.flights;
   const flightList = res.locals.flights.trips;
+  console.log('flightData keys', Object.keys(flightData));
+  console.log('flightList is array', Array.isArray(flightList));
+  console.log('flightList count: ', flightList.length);
   const parsedData = [];
   // parse data to create flight objects
   // push flight objects to parsedData
@@ -45,6 +80,8 @@ flightController.parseData = (req, res, next) => {
     stopovers: ARRAY, // elements are names of each stopover airport
   }
   */
+  // TODO: typerror: flightlist is not iterable
+
   for (const flight of flightList) {
     const flightId = flight.id;
     const fare = flightData.fares.find((fare) => fare.tripId == flightId);
