@@ -1,9 +1,17 @@
 import React from 'react';
+import SearchResult from '../../components/SearchResult/SearchResult.jsx';
 
-export default function SearchResults() {
-  return (
-    <div className='prev-search-results'>
-      <p>This will contain info about all search results</p>
-    </div>
-  );
+export default function SearchResults({ apiResults }) {
+  const searchResultArr = apiResults.map((result) => {
+    return (
+      <SearchResult
+        key={result.flightId}
+        price={result.price}
+        provider={result.provider}
+        handoffUrl={result.handoffUrl}
+        legs={result.legs}
+      />
+    );
+  });
+  return <div className='prev-search-results'>{searchResultArr}</div>;
 }
