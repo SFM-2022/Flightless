@@ -10,6 +10,7 @@ module.exports = {
   devServer: {
     static: {
       publicPath: '/build',
+      //dir should b dist?
       directory: path.resolve(__dirname, 'build'),
     },
     proxy: {
