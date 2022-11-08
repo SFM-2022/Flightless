@@ -11,19 +11,35 @@ export default function SearchResult({
   const roundTrip = legs.length === 2;
 
   return (
-    <div>
+    <div className='total-legs-component'>
       <div>
-        Outbound from: {depAirport} to: {arrAirport}
+        <span className='bold-text'>Outbound from: </span> {depAirport} to:{' '}
+        {arrAirport}
       </div>
-      <div>Departs: {legs[0].departureTime} </div>
-      <div>Arrives: {legs[0].arrivalTime}</div>
+      <div>
+        <span className='bold-text'>Departs: </span> {legs[0].departureTime}
+      </div>
+      <div>
+        {' '}
+        <span className='bold-text'>Arrives: </span>
+        {legs[0].arrivalTime}
+      </div>
 
-      <div>Carrier: {legs[0].airlines.join(', ')} </div>
-      <div>Layover(s): {legs[0].layovers.join(', ')}</div>
-      <div>Total Duration: {legs[0].duration}</div>
+      <div>
+        <span className='bold-text'>Carrier: </span>
+        {legs[0].airlines.join(', ')}{' '}
+      </div>
+      <div>
+        <span className='bold-text'>Layover(s): </span>
+        {legs[0].layovers.join(', ')}
+      </div>
+      <div>
+        <span className='bold-text'>Total Duration: </span>
+        {legs[0].duration}
+      </div>
 
       {roundTrip && (
-        <div>
+        <div className='round-trip-legs-results'>
           <div>
             Return from: {legs[1].depAirport} to: {legs[1].arrAirport}
           </div>
@@ -33,10 +49,17 @@ export default function SearchResult({
         </div>
       )}
 
-      <div>Provider: {provider}</div>
-      <div>Total Price: ${price}</div>
-      <a href={handoffUrl}>
-        <button>Book Now</button>
+      <div>
+        {' '}
+        <span className='bold-text'>Provider: </span>
+        {provider}
+      </div>
+      <div>
+        {' '}
+        <span className='bold-text'>Total Price: </span>${price}
+      </div>
+      <a href={handoffUrl} target='blank'>
+        <button className='book-now'>Book Now</button>
       </a>
     </div>
   );

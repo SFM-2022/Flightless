@@ -14,13 +14,6 @@ export default function App() {
   const [savedSearches, setSavedSearches] = useState([]);
   const [apiResults, setApiResults] = useState([]);
   const [formIsOpen, setFormIsOpen] = useState(false);
-  useEffect(() => {
-    axios
-      .get('/api/test')
-      // .get('/api/flights')
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
 
   const updateForm = (info) => {
     setFormData(info);
@@ -28,6 +21,7 @@ export default function App() {
 
   useEffect(() => {
     if (formData.length === 0) return;
+    console.log(formData);
     axios
       .post('/api/flights', formData)
       .then((res) => {
@@ -71,23 +65,14 @@ each input has <input value={}/>
       <div className='search-results'>
         <Sidebar />
         <Routes>
-          <Route
-            path='/'
-            element={<SearchResults apiResults={apiResults} />}
-          />
+          <Route path='/' element={<SearchResults apiResults={apiResults} />} />
           <Route
             path='/saved-trips'
             element={
-              <SavedTrips
-                savedSearches={savedSearches}
-                fetchRows={fetchRows}
-              />
+              <SavedTrips savedSearches={savedSearches} fetchRows={fetchRows} />
             }
           />
-          <Route
-            path='*'
-            element={<NotFound />}
-          />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
     </>

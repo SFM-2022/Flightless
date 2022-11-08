@@ -13,5 +13,11 @@ export default function SearchResults({ apiResults }) {
       />
     );
   });
-  return <div className='prev-search-results'>{searchResultArr}</div>;
+  return (
+    <div className='prev-search-results'>
+      . &nbsp;&nbsp; . &nbsp;&nbsp; . &nbsp;&nbsp; . &nbsp;&nbsp; . &nbsp;&nbsp;
+      . &nbsp;&nbsp; ✈️
+      <div className='search-result-list'>{searchResultArr}</div>
+    </div>
+  );
 }
