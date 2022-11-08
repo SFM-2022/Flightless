@@ -73,7 +73,7 @@ tripController.createData = (req, res, next) => {
   db.query(tripData, values)
     .then((data) => {
       console.log('this is the data from tripController.createData', data);
-      next();
+      res.locals.trips = next();
     })
     .catch((err) =>
       next({

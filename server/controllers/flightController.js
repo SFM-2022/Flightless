@@ -104,17 +104,26 @@ flightController.parseData = (req, res, next) => {
           // return the name property of the matching airline
           flightData.airlines.find((airline) => airline.code == code).name
       );
-      // ditto for airports
-      const stopovers = rawLeg.stopoverAirportCodes.map(
+      // ditto for layover airports
+      const layovers = rawLeg.stopoverAirportCodes.map(
         (code) =>
           flightData.airports.find((airport) => airport.code == code).name
+      );
+      // ditto for dep and arr airports
+      const depAirport = flightData.airports.find(
+        (airport) => airport.code == rawLeg.departureAirportCode
+      );
+      const arrAirport = flightData.airports.find(
+        (airport) => airport.code == rawLeg.arrivalAirportCode
       );
       flightObj.legs.push({
         departureTime,
         arrivalTime,
         duration,
         airlines,
-        stopovers,
+        depAirport: depAirport.name,
+        arrAirport: arrAirport.name,
+        layovers,
       });
     }
     parsedData.push(flightObj);

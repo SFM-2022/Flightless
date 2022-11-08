@@ -17,19 +17,19 @@ const Form = ({ updateForm }) => {
   const [data, setData] = useState([]);
 
   // if there are any changes to data, this will make a post request to api/flights
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const { data: response } = await axios.post('/api/flights', data);
-        setData(response);
-      } catch (err) {
-        console.log(`error fetching state: ${err}`);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, [data]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const { data: response } = await axios.post('/api/flights', data);
+  //       setData(response);
+  //     } catch (err) {
+  //       console.log(`error fetching state: ${err}`);
+  //     }
+  //     setLoading(false);
+  //   };
+  //   fetchData();
+  // }, [data]);
 
   // updateForm will upstate dataForm (state in app.jsx)
   // handle submit
@@ -44,7 +44,12 @@ const Form = ({ updateForm }) => {
 
   return (
     <div className='formBody'>
-      <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          updateForm(JSON.stringify(data));
+          setData(JSON.stringify(data));
+        })}
+      >
         <div className='searchBar'>
           <h1 className='title-name'>Flightless</h1>
 
